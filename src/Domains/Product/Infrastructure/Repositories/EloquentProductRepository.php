@@ -81,4 +81,16 @@ class EloquentProductRepository implements ProductRepositoryInterface
         }
         return $products;
     }
+
+    // ... (các phương thức khác giữ nguyên)
+
+    public function update(Product $product): void
+    {
+        EloquentProduct::where('id', $product->getId())->update([
+            'name' => $product->getName(),
+            'price' => $product->getPrice(),
+            'category' => $product->getCategory(),
+            'stock' => $product->getStock(),
+        ]);
+    }
 }

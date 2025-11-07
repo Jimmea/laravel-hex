@@ -28,4 +28,6 @@ interface ProductRepositoryInterface
     public function getProductsByCategory(string $category): array; // Thêm phương thức lấy sản phẩm theo danh mục
 
     public function getPopularProducts(int $limit = 5): array;
+
+    public function update(Product $product): void; // Thêm phương thức cập nhật
 }
