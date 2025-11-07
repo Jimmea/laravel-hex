@@ -4,25 +4,31 @@ namespace App\Domains\Product\Infrastructure\Http\Controllers;
 
 use App\Domains\Product\Application\Dtos\AddReviewRequest;
 use App\Domains\Product\Application\Dtos\CreateProductRequest;
+use App\Domains\Product\Application\Services\AddReviewService;
 use App\Domains\Product\Application\Services\ApplyPromotionService;
 use App\Domains\Product\Application\Services\CreateProductService;
 use App\Domains\Product\Application\Services\GetProductDetailService;
+use App\Domains\Product\Application\Services\GetProductReviewsService;
+use App\Domains\Product\Application\Services\GetRecommendedProductsService;
 use App\Domains\Product\Application\Services\GetUserViewedProductsService;
 use App\Domains\Product\Application\Services\SearchProductsService;
 use App\Domains\Product\Application\Services\GetProductStatisticsService;
 use App\Domains\Product\Application\Services\GetProductPurchaseQuantityService;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    private $createService;
-    private $detailService;
-    private $searchService;
-    private $statsService;
-    private $purchaseQtyService;
-    private $userViewedService;
-
-    private $applyPromotionService;
+    private   $createService;
+    private   $detailService;
+    private   $searchService;
+    private   $statsService;
+    private   $purchaseQtyService;
+    private   $userViewedService;
+    private   $getProductReviewsService;
+    protected $addReviewService;
+    private   $getRecommendedProductsService;
+    private   $applyPromotionService;
 
     public function __construct(
         CreateProductService              $createService,
@@ -30,16 +36,22 @@ class ProductController extends Controller
         SearchProductsService             $searchService,
         GetProductStatisticsService       $statsService,
         GetProductPurchaseQuantityService $purchaseQtyService,
-        GetUserViewedProductsService $userViewedService,
-        ApplyPromotionService  $applyPromotionService
+        GetUserViewedProductsService      $userViewedService,
+        ApplyPromotionService             $applyPromotionService,
+        AddReviewService                  $addReviewService,
+        GetProductReviewsService          $getProductReviewsService,
+        GetRecommendedProductsService     $getRecommendedProductsService
     ) {
-        $this->createService      = $createService;
-        $this->detailService      = $detailService;
-        $this->searchService      = $searchService;
-        $this->statsService       = $statsService;
-        $this->purchaseQtyService = $purchaseQtyService;
-        $this->userViewedService = $userViewedService;
-        $this->applyPromotionService = $applyPromotionService;
+        $this->createService                 = $createService;
+        $this->detailService                 = $detailService;
+        $this->searchService                 = $searchService;
+        $this->statsService                  = $statsService;
+        $this->purchaseQtyService            = $purchaseQtyService;
+        $this->userViewedService             = $userViewedService;
+        $this->applyPromotionService         = $applyPromotionService;
+        $this->addReviewService              = $addReviewService;
+        $this->getProductReviewsService      = $getProductReviewsService;
+        $this->getRecommendedProductsService = $getRecommendedProductsService;
     }
 
     public function create(Request $request)
